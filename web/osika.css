@@ -1,0 +1,97 @@
+body {
+    background-color: #008200;
+    font-family: Georgia, Verdana, Helvetica, Arial, Sans Serif;
+}
+
+h1 {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-family: Verdana;
+    color: #00340A;
+}
+
+form {
+    margin: auto;
+    margin-bottom: 15px;
+    width: 750px;
+    border-radius: 5px;
+    border: solid 2px #DFFFFF;
+    text-align: center;
+    color: #DFFFFF;
+    background-color: #888;
+}
+
+ul {
+    text-align: left;
+}
+
+input {
+    width: 150px;
+    background-color: #00A600;
+    border: solid 2px #DFFFFF;
+    color: #DFFFFF;
+}
+
+.spades {
+    color: darkblue;
+    font-size: 20px;
+}
+
+.hearts {
+    color: red;
+    font-size: 20px;
+}
+
+.diamonds {
+    color: orange;
+    font-size: 20px;
+}
+
+.clubs {
+    color: darkgreen;
+    font-size: 20px;
+}
+
+.error {
+    background-color: #880000;
+    color: red;
+    border-radius: 5px;
+    border: solid 2px red;
+}
+
+th {
+    background-color: #666;
+    text-align: center;
+}
+
+td {
+    text-align: right;
+    width: 80px;
+    line-height: 20px;
+}
+
+td:first-child {
+    background-color: #666;
+    text-align: left;
+    width: 300px;
+}
+
+.subtotal {
+    background-color: #777;
+    color: black;
+}
+
+.total {
+    background-color: #666;
+    color: black;
+}
+
+table {
+    width: 700px;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+

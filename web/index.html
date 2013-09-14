@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>OSiKa</title>
+    <script src="http://code.jquery.com/jquery-1.4.3.js"></script>
+    <script src="osika.js"></script>
+    <link href="osika.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <form name="osika">
+      <h1>OSiKa</h1>
+      Podaj rękę do oceny:<br />
+      <span class="spades">&spades;</span>
+      <input type="text" id="suit0" value="xxxx" />
+      <span class="hearts">&hearts;</span>
+      <input type="text" id="suit1" value="xxx" />
+      <span class="diamonds">&diams;</span>
+      <input type="text" id="suit2" value="xxx" />
+      <span class="clubs">&clubs;</span>
+      <input type="text" id="suit3" value="xxx" /><br />
+      <input type="submit" id="evaluate" value="Oceń" />
+      <div id="result"></div>
+    </form>
+    <form>
+      Poprawność danych w formularzu:
+      <ul>
+        <li>ignorowane są białe znaki</li>
+        <li>wielkość liter nie ma znaczenia</li>
+        <li>ręka musi zawierać 13 kart</li>
+        <li><b>x</b> oznacza dowolną blotkę (ale cyfry również dozwolone)</li>
+        <li>Dama = Q/D, Walet = J/W, 10 = 10/T</li>
+        <li>w pojedynczym kolorze nie mogą duplikować się honory ani 9</li>
+        <li>kolejność kart w kolorze nie ma znaczenia</li>
+        <li>blotki nie są weryfikowane (kolor może posiadać zduplikowane blotki, może też posiadać niemożliwą liczbę blotek, np. 10)</li>
+      </ul>
+    </form>
+  </body>
+</html>
