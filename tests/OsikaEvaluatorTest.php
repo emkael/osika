@@ -17,7 +17,7 @@ class OsikaEvaluatorTest extends PHPUnit_Framework_TestCase {
     foreach ($file as $line) {
       if (trim($line)) {
 	if ($switch) {
-	  $item[] = json_decode($line);
+	  $item[] = json_decode($line, TRUE);
 	  $ret[] = $item;
 	}
 	else {

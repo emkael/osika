@@ -271,7 +271,7 @@ class OsikaEvaluator {
     $result['subtotal'] = $subtotal;
     $result['total'] = array('total' => $total);
 
-    return json_decode(json_encode($result));
+    return $result;
   }
 
 }
