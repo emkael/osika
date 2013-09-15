@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * DISCLAIMER!
+ *
+ * Do NOT. Under ANY circumstances. Use this test set as an evaluation
+ * for OSiKa algorithm correctness.
+ *
+ * It's SOLE purpose was to ensure correct transition from the previous
+ * codebase and it ONLY checks if all the calculation and output collection
+ * was handled the same way as with the previous script.
+ *
+ * This test set does NOT ensure that the trick values coming out of the algorithm
+ * are in any way correct, in terms of bridge theory.
+ **/
+
 class OsikaEvaluatorTest extends PHPUnit_Framework_TestCase {
 
   private $_evaluator;
