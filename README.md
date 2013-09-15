@@ -25,7 +25,7 @@ Instalacja
 
 Wersja konsolowa:
 
-Wystarczające jest ściągnięcie paczki z głównego katalogu repozytorium albo ręczne ściągnięcie całości katalogu [/bin/](bin/) z repozytorium.
+Wystarczające jest ściągnięcie [paczki](osika.zip) z głównego katalogu repozytorium albo ręczne ściągnięcie całości katalogu [/bin/](bin/) z repozytorium.
 
 Wersja interaktywna:
 
