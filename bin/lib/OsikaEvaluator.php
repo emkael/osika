@@ -79,6 +79,9 @@ class OsikaEvaluator {
       return 0;
     }
     $count = $this->_countHonors($suit);
+    if (!$count) {
+      return 0;
+    }
     // H sec = -1/8 of a trick; Hx = -1/16 of a trick; HH sec = -1/8 of a trick
     return $count * (($length === 1) ? -0.125 : -0.0625);
   }
