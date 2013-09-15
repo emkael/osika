@@ -1,0 +1,182 @@
+#!/usr/bin/env php
+<?php
+
+class Osika
+{
+
+  private static $suitHeaders = array(
+				      'c' => '♣',
+				      'd' => '♦',
+				      'h' => '♥',
+				      's' => '♠',
+				      'total' => 'Σ'
+				      );
+  private static $catHeaders = array(
+				     'lh' => "Honory\t",
+				     'lh_plus' => 'Zgrupowania',
+				     'lh_10' => 'Podwiązania',
+				     'lh_short' => 'Krótkie honory',
+				     'lh_subtotal' => 'Lewy honorowe',
+				     'lu' => 'Lewy układowe',
+				     'subtotal' => "Razem\t",
+				     'lsz' => 'Lewy szybkie',
+				     'lu_plus' => 'Wysokie blotki',
+				     'short_suit' => 'Kolory krótkie',
+				     'major_suit' => 'Kolory starsze',
+				     'l10n' => 'Lokalizacja',
+				     'total' => "Łącznie\t"
+				     );
+
+
+  public static function printHelp() {
+    print "OSiKa, v1.0.0, autor: M. Klichowicz (mkl)
+
+Program do analizy siły ręki brydżowej metodami algorytmów licytacji naturalnej wg Łukasza Sławińskiego.
+
+Sposób użycia:
+      
+php osika [OPCJE] KARTY
+
+KARTY
+    układ ręki w formacie czterech kolorów rozdzielonych przecinkami,
+    np. xxx,xxx,xxx,xxxx
+
+OPCJE
+    -h, --help
+        Wyświetla ten komunikat
+
+    -f FORMAT, --format FORMAT
+        Sposób formatowania wyjścia.
+        Rozpoznawane wartości: raw, table, json. Wartość domyślna: table
+
+    -c KATEGORIE, --categories KATEGORIE
+       Lista (rozdzielonych przecinkami) składowych łącznej siły ręki,
+       które program ma wyświetlić.
+       Domyślna wartość: all. Dostępne wartości:";
+    foreach (self::$catHeaders as $cat => $header) {
+      print "
+           $cat: $header";
+    }
+    print "
+
+    -s KOLORY
+        Lista (rozdzielonych przecinkami) kolorów,
+        dla których składowe program ma wyświetlić.
+        Możliwe wartości: s, h, d, c, total, all. Domyślna wartość: all
+";
+  }
+  
+  public static function printTable($output, $categories, $suits, $raw = FALSE) {
+    if (!$raw) {
+      print "\t\t";
+      foreach ($suits as $suit) {
+	if (isset(self::$suitHeaders[$suit])) {
+	  print self::$suitHeaders[$suit];
+	}
+	print "\t";
+      }
+      print "\n";
+    }
+    foreach ($categories as $cat) {
+      if (!$raw) {
+	if (isset(self::$catHeaders[$cat])) {
+	  print self::$catHeaders[$cat];
+	}
+	print "\t";
+      }
+      foreach ($suits as $suit) {
+	if (isset($output[$cat][$suit])) {
+	  print $output[$cat][$suit];
+	}
+	print "\t";
+      }
+      print "\n";
+    }
+  }
+
+}
+
+require_once('lib/OsikaEvaluator.php');
+
+$hand = str_replace(',', '|', array_pop($argv));
+
+$options = getopt('hf:c:s:', array('help', 'format:', 'categories:', 'suits:'));
+if (isset($options['h']) || isset($options['help']) || $argc < 2) {
+  Osika::printHelp();
+  exit;
+}
+
+$format = isset($options['f']) ? $options['f'] : (isset($options['format']) ? $options['format'] : 'table');
+if (is_array($format)) {
+  $format = array_pop($format);
+}
+
+$catOptions = array();
+if (isset($options['c'])) {
+    $catOptions = array_merge($catOptions, (array)$options['c']);
+}
+if (isset($options['categories'])) {
+    $catOptions = array_merge($catOptions, (array)$options['categories']);
+}
+$categories = array();
+foreach ($catOptions as $cat) {
+  $categories = array_merge($categories, explode(',', $cat));
+}
+if (empty($categories)) {
+  $categories = array('all');
+}
+if (in_array('all', $categories)) {
+  $categories = array('lh','lh_plus','lh_10','lh_short','lh_subtotal','lu','subtotal','lsz','lu_plus','short_suit','major_suit','l10n','total');
+}
+
+$suitOptions = array();
+if (isset($options['s'])) {
+    $suitOptions = array_merge($suitOptions, (array)$options['s']);
+}
+if (isset($options['suits'])) {
+    $suitOptions = array_merge($suitOptions, (array)$options['suits']);
+}
+$suits = array();
+foreach ($suitOptions as $suit) {
+  $suits = array_merge($suits, explode(',', $suit));
+}
+if (empty($suits)) {
+  $suits = array('all');
+}
+if (in_array('all', $suits)) {
+  $suits = array('s','h','d','c','total');
+}
+
+try {
+  $eval = new OsikaEvaluator($hand);
+  $result = $eval->evaluate();
+  $output = array();
+  foreach ($result as $categoryName => $category) {
+    if (in_array($categoryName, $categories)) {
+      $outCat = array();
+      foreach ($category as $suitName => $suit) {
+	if (in_array($suitName, $suits)) {
+	  $outCat[$suitName] = $suit;
+	}
+      }
+      $output[$categoryName] = $outCat;
+    }
+  }
+  switch ($format) {
+  case 'json':
+    print json_encode($output)."\n";
+    exit;
+  case 'raw':
+    Osika::printTable($output, $categories, $suits, TRUE);
+    exit;
+  case 'table':
+  default:
+    Osika::printTable($output, $categories, $suits);
+    exit;
+  }
+}
+catch (Exception $e) {
+  print 'ERROR: '.$e->getMessage()."\n";
+}
+
+?>
