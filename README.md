@@ -6,13 +6,13 @@ Narzędzie oceny siły rąk brydżowych w oparciu o algorytmy licytacji naturaln
 Wymagania systemowe
 -------------------
 
-Wersja konsolowa:
+### Wersja konsolowa:
 
  * interpreter PHP 5.3+[1] z modułem JSON
 
 [1]: z wyjątkiem testów jednostkowych z katalogu [/tests/](tests) - kompletnie niepotrzebnych użytkownikowi końcowemu - te wymagają PHP 5.4+
 
-Wersja interaktywna (WWW), dodatkowo:
+### Wersja interaktywna (WWW), dodatkowo:
 
  * eee... serwer WWW?
  * biblioteki JavaScript:
@@ -23,11 +23,11 @@ Wersja interaktywna (WWW), dodatkowo:
 Instalacja
 ----------
 
-Wersja konsolowa:
+### Wersja konsolowa:
 
 Wystarczające jest ściągnięcie [paczki](osika.zip) z głównego katalogu repozytorium albo ręczne ściągnięcie całości katalogu [/bin/](bin/) z repozytorium.
 
-Wersja interaktywna:
+### Wersja interaktywna:
 
 Po ściągnięciu z repozytorium katalogów [/web/](web/) oraz [/bin/](bin/), należy:
  * umieścić zawartość katalogu [/web/](web/) w miejscu dostępnym dla serwera WWW
@@ -38,7 +38,7 @@ Po ściągnięciu z repozytorium katalogów [/web/](web/) oraz [/bin/](bin/), na
 Użycie
 ------
 
-Wersja konsolowa:
+### Wersja konsolowa:
 
 W katalogu instalacji wydać polecenie:
 ```
@@ -72,7 +72,7 @@ OPCJE
 
 -c KATEGORIE, --categories KATEGORIE: lista składników analizy siły ręki (rozdzielona przecinkami); dostępne wartości wymienione są w pomocy programu (`php osika -h`); wartość domyślna: all
 
-Wersja interaktywna:
+### Wersja interaktywna:
 
 Się wpisuje, się klika i się wyświetla.
 
