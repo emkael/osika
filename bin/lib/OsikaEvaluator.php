@@ -23,7 +23,8 @@ class OsikaEvaluator {
       self::$_honorCounts[$suit] = array(NULL, NULL);
     }
     if (self::$_honorCounts[$suit][$major] === NULL) {
-      self::$_honorCounts[$suit][$major] = preg_match_all($major ? '/a|k|q/' : '/a|k|q|j/', $suit);
+	  $dummy = array();
+      self::$_honorCounts[$suit][$major] = preg_match_all($major ? '/a|k|q/' : '/a|k|q|j/', $suit, $dummy);
     }
     return self::$_honorCounts[$suit][$major];
   }
@@ -144,7 +145,8 @@ class OsikaEvaluator {
     // statistically, we should have 2 of those
     // but we're not counting short suits and some long suit 10 configurations
     // so the par for the course is 1 middle card
-    $count = preg_match_all('/t|9/', $nonshort) - 1;
+	$dummy = array(); // this is humiliating
+    $count = preg_match_all('/t|9/', $nonshort, $dummy) - 1;
     // if we're better than that single middle card -> 1/16 of a trick
     // if we're worse -> -1/16
     return max(-0.0625, min(0.0625, $count * 0.0625));
@@ -227,7 +229,7 @@ class OsikaEvaluator {
     return 0;
   }
 
-  private static $_suits = ['s','h','d','c'];
+  private static $_suits = array('s','h','d','c');
   public function evaluate() {
     $result = array();
     $result['lh'] = array();
