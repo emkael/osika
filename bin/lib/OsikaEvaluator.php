@@ -256,18 +256,24 @@ class OsikaEvaluator {
     $result['l10n'] = array('total' => $this->_localizationCorrections($result, $distribution));
 
     $subtotal = array();
+    $lhSubtotal = array();
     $total = 0;
     foreach ($result as $category => $factor) {
       if (count($factor) === 5) {
 	foreach ($factor as $index => $subt) {
 	  if (!isset($subtotal[$index])) {
 	    $subtotal[$index] = 0;
+	    $lhSubtotal[$index] = 0;
 	  }
 	  $subtotal[$index] += $subt;
+	  if ($category !== 'lu') {
+	    $lhSubtotal[$index] += $subt;
+	  }
 	}
       }
       $total += $factor['total'];
     }
+    $result['lh_subtotal'] = $lhSubtotal;
     $result['subtotal'] = $subtotal;
     $result['total'] = array('total' => $total);
 
