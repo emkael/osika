@@ -190,10 +190,10 @@ class OsikaEvaluator {
       if (strlen($index) === 1) {
 	if ($distribution[$index] >= 3) {
 	  if (isset($strength[$distribution[$index]])) {
-	    $strength[$distribution[$index]] += ($result['lh'][$index]+$result['lh_plus'][$index]+$result['lh_10'][$index]+$result['lh_short'][$index]);
+	    $strength[$distribution[$index]] += ($result['lh'][$index]+$result['lh_plus'][$index]+$result['lh_pod'][$index]+$result['lh_short'][$index]);
 	  }
 	  else {
-	    $strength[$distribution[$index]] = ($result['lh'][$index]+$result['lh_plus'][$index]+$result['lh_10'][$index]+$result['lh_short'][$index]);
+	    $strength[$distribution[$index]] = ($result['lh'][$index]+$result['lh_plus'][$index]+$result['lh_pod'][$index]+$result['lh_short'][$index]);
 	  }
 	  if (isset($length[$distribution[$index]])) {
 	    $length[$distribution[$index]] += $distribution[$index];
@@ -234,7 +234,7 @@ class OsikaEvaluator {
     $result = array();
     $result['lh'] = array();
     $result['lh_plus'] = array();
-    $result['lh_10'] = array();
+    $result['lh_pod'] = array();
     $result['lh_short'] = array();
     $result['lu'] = array();
     foreach ($this->_hand as $ind => $suit) {
@@ -247,7 +247,7 @@ class OsikaEvaluator {
     }
     $result['lh']['total'] = array_sum($result['lh']);
     $result['lh_plus']['total'] = array_sum($result['lh_plus']);
-    $result['lh_pod']['total'] = array_sum($result['lh_10']);
+    $result['lh_pod']['total'] = array_sum($result['lh_pod']);
     $result['lh_short']['total'] = array_sum($result['lh_short']);
     $result['lu']['total'] = array_sum($result['lu']);
 
