@@ -241,13 +241,13 @@ class OsikaEvaluator {
       $suitChar = self::$_suits[$ind];
       $result['lh'][$suitChar] = $this->_honorTricks($suit);
       $result['lh_plus'][$suitChar] = $this->_honorTrickCorrections($suit);
-      $result['lh_10'][$suitChar] = $this->_honorTrickSupportCorrections($suit);
+      $result['lh_pod'][$suitChar] = $this->_honorTrickSupportCorrections($suit);
       $result['lh_short'][$suitChar] = $this->_honorTrickShortCorrections($suit);
       $result['lu'][$suitChar] = $this->_distributionTricks($suit);
     }
     $result['lh']['total'] = array_sum($result['lh']);
     $result['lh_plus']['total'] = array_sum($result['lh_plus']);
-    $result['lh_10']['total'] = array_sum($result['lh_10']);
+    $result['lh_pod']['total'] = array_sum($result['lh_10']);
     $result['lh_short']['total'] = array_sum($result['lh_short']);
     $result['lu']['total'] = array_sum($result['lu']);
 
