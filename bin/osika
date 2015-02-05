@@ -13,7 +13,7 @@ class Osika {
    private static $catHeaders = [
                                  'lh' => "Honory\t",
                                  'lh_plus' => 'Zgrupowania',
-                                 'lh_10' => 'Podwiązania',
+                                 'lh_pod' => 'Podwiązania',
                                  'lh_short' => 'Krótkie honory',
                                  'lh_subtotal' => 'Lewy honorowe',
                                  'lu' => 'Lewy układowe',
@@ -125,7 +125,7 @@ if (empty($categories)) {
    $categories = ['all'];
 }
 if (in_array('all', $categories)) {
-   $categories = ['lh','lh_plus','lh_10','lh_short','lh_subtotal','lu','subtotal','lsz','lu_plus','short_suit','major_suit','l10n','total'];
+   $categories = ['lh','lh_plus','lh_pod','lh_short','lh_subtotal','lu','subtotal','lsz','lu_plus','short_suit','major_suit','l10n','total'];
 }
 
 $suitOptions = [];
