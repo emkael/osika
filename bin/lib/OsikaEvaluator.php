@@ -17,24 +17,23 @@ class OsikaEvaluator {
       $this->_hand = $parser->parse();
    }
 
-   private static $_honorCounts = array();
+   private static $_honorCounts = [];
    private function _countHonors($suit, $major = FALSE) {
       if (!isset(self::$_honorCounts[$suit])) {
-         self::$_honorCounts[$suit] = array(NULL, NULL);
+         self::$_honorCounts[$suit] = [NULL, NULL];
       }
       if (self::$_honorCounts[$suit][$major] === NULL) {
-         $dummy = array();
-         self::$_honorCounts[$suit][$major] = preg_match_all($major ? '/a|k|q/' : '/a|k|q|j/', $suit, $dummy);
+         self::$_honorCounts[$suit][$major] = preg_match_all($major ? '/a|k|q/' : '/a|k|q|j/', $suit);
       }
       return self::$_honorCounts[$suit][$major];
    }
 
-   private static $_cardHonorTricks = array(
-                                            'a' => 1.125,
-                                            'k' => 0.8125,
-                                            'q' => 0.4375,
-                                            'j' => 0.125
-                                            );
+   private static $_cardHonorTricks = [
+                                       'a' => 1.125,
+                                       'k' => 0.8125,
+                                       'q' => 0.4375,
+                                       'j' => 0.125
+                                       ];
    private function _honorTricks($suit) {
       // only 3 highest cards in the suit holding count towards honor tricks
       $suit = substr($suit, 0, 3);
@@ -87,12 +86,12 @@ class OsikaEvaluator {
       return $count * (($length === 1) ? -0.125 : -0.0625);
    }
 
-   private static $_lengthDistributionTricks = array(
-                                                     4 => 0.4375,
-                                                     5 => 1.5,
-                                                     6 => 2.75,
-                                                     7 => 3.9375
-                                                     );
+   private static $_lengthDistributionTricks = [
+                                                4 => 0.4375,
+                                                5 => 1.5,
+                                                6 => 2.75,
+                                                7 => 3.9375
+                                                ];
    private function _distributionTricks($suit) {
       $length = strlen($suit);
       if ($length < 4) {
@@ -145,15 +144,14 @@ class OsikaEvaluator {
       // statistically, we should have 2 of those
       // but we're not counting short suits and some long suit 10 configurations
       // so the par for the course is 1 middle card
-      $dummy = array(); // this is humiliating
-      $count = preg_match_all('/t|9/', $nonshort, $dummy) - 1;
+      $count = preg_match_all('/t|9/', $nonshort) - 1;
       // if we're better than that single middle card -> 1/16 of a trick
       // if we're worse -> -1/16
       return max(-0.0625, min(0.0625, $count * 0.0625));
    }
 
    private function _shortSuitCorrections($distribution) {
-      $shortSuits = array();
+      $shortSuits = [];
       foreach ($distribution as $suit) {
          // short suit is a 3- card suit here
          if ($suit <= 3) {
@@ -184,8 +182,8 @@ class OsikaEvaluator {
 
    // I honestly have no idea what the hell's going on below.
    private function _localizationCorrections($result, $distribution) {
-      $strength = array();
-      $length = array();
+      $strength = [];
+      $length = [];
       foreach ($result['lh'] as $index => $value) {
          if (strlen($index) === 1) {
             if ($distribution[$index] >= 3) {
@@ -229,14 +227,14 @@ class OsikaEvaluator {
       return 0;
    }
 
-   private static $_suits = array('s','h','d','c');
+   private static $_suits = ['s','h','d','c'];
    public function evaluate() {
-      $result = array();
-      $result['lh'] = array();
-      $result['lh_plus'] = array();
-      $result['lh_pod'] = array();
-      $result['lh_short'] = array();
-      $result['lu'] = array();
+      $result = [];
+      $result['lh'] = [];
+      $result['lh_plus'] = [];
+      $result['lh_pod'] = [];
+      $result['lh_short'] = [];
+      $result['lu'] = [];
       foreach ($this->_hand as $ind => $suit) {
          $suitChar = self::$_suits[$ind];
          $result['lh'][$suitChar] = $this->_honorTricks($suit);
@@ -251,17 +249,17 @@ class OsikaEvaluator {
       $result['lh_short']['total'] = array_sum($result['lh_short']);
       $result['lu']['total'] = array_sum($result['lu']);
 
-      $result['lsz'] = array('total' => $this->_quickTricks($this->_hand));
-      $result['lu_plus'] = array('total' => $this->_middleCardCorrections($this->_hand));
+      $result['lsz'] = ['total' => $this->_quickTricks($this->_hand)];
+      $result['lu_plus'] = ['total' => $this->_middleCardCorrections($this->_hand)];
 
       $distribution = array_combine(self::$_suits, array_map('strlen', $this->_hand));
-      $result['short_suit'] = array('total' => $this->_shortSuitCorrections($distribution));
-      $result['major_suit'] = array('total' => $this->_majorSuitCorrections($distribution));
+      $result['short_suit'] = ['total' => $this->_shortSuitCorrections($distribution)];
+      $result['major_suit'] = ['total' => $this->_majorSuitCorrections($distribution)];
 
-      $result['l10n'] = array('total' => $this->_localizationCorrections($result, $distribution));
+      $result['l10n'] = ['total' => $this->_localizationCorrections($result, $distribution)];
 
-      $subtotal = array();
-      $lhSubtotal = array();
+      $subtotal = [];
+      $lhSubtotal = [];
       $total = 0;
       foreach ($result as $category => $factor) {
          if (count($factor) === 5) {
@@ -280,7 +278,7 @@ class OsikaEvaluator {
       }
       $result['lh_subtotal'] = $lhSubtotal;
       $result['subtotal'] = $subtotal;
-      $result['total'] = array('total' => $total);
+      $result['total'] = ['total' => $total];
 
       return $result;
    }

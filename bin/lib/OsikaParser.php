@@ -39,19 +39,19 @@ class OsikaParser {
       }
       // ...queens...
       if ($cardA == 'q') {
-         return (in_array($cardB, array('a', 'k'))) ? 1 : -1;
+         return (in_array($cardB, ['a', 'k'])) ? 1 : -1;
       }
       // ...jacks...
       if ($cardA == 'j') {
-         return (in_array($cardB, array('a', 'k', 'q'))) ? 1 : -1;
+         return (in_array($cardB, ['a', 'k', 'q'])) ? 1 : -1;
       }
       // ...tens...
       if ($cardA == 't') {
-         return (in_array($cardB, array('a', 'k', 'q', 'j'))) ? 1 : -1;
+         return (in_array($cardB, ['a', 'k', 'q', 'j'])) ? 1 : -1;
       }
       // ... and nines
       if ($cardA == '9') {
-         return (in_array($cardB, array('a', 'k', 'q', 'j', 't'))) ? 1 : -1;
+         return (in_array($cardB, ['a', 'k', 'q', 'j', 't'])) ? 1 : -1;
       }
       // anything else goes last, as it was
       return 1;
@@ -62,7 +62,7 @@ class OsikaParser {
     **/
    private function _sortSuit(&$suit) {
       $temp = str_split($suit);
-      usort($temp, array($this, '_sort'));
+      usort($temp, [$this, '_sort']);
       $suit = implode('', $temp);
    }
 
@@ -77,10 +77,10 @@ class OsikaParser {
       $this->_hand = strtolower($this->_hand);
       // allow (and interpret) Polish figures abbrevs. and "10" as Ten
       $this->_hand = strtr($this->_hand,
-                           array(
-                                 '10' => 't',
-                                 'w' => 'j',
-                                 'd' => 'q'));
+                           [
+                            '10' => 't',
+                            'w' => 'j',
+                            'd' => 'q']);
       // strip whitespace
       $this->_hand = preg_replace('/\s/', '', $this->_hand);
       $suits = explode('|', $this->_hand);
@@ -95,7 +95,7 @@ class OsikaParser {
             throw new OsikaParserException('Kolor '.$suit.' zawiera nieprawidłowe znaki', OsikaParserException::INVALID_CHARS);
          }
          // check for duplicate cards
-         foreach (array('a', 'k', 'q', 'j', 't', '9') as $honor) {
+         foreach (['a', 'k', 'q', 'j', 't', '9'] as $honor) {
             if (substr_count($suit, $honor) > 1) {
                throw new OsikaParserException('Kolor '.$suit.' zawiera zduplikowany honor (lub 9)', OsikaParserException::DUPLICATE_CHARS);
             }

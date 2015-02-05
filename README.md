@@ -8,9 +8,7 @@ Wymagania systemowe
 
 ### Wersja konsolowa:
 
- * interpreter PHP 5.3+[1] z modułem JSON
-
-[1]: z wyjątkiem testów jednostkowych z katalogu [/tests/](tests) - kompletnie niepotrzebnych użytkownikowi końcowemu - te wymagają PHP 5.4+
+ * interpreter PHP 5.4+ z modułem JSON
 
 ### Wersja interaktywna (WWW), dodatkowo:
 
@@ -19,7 +17,7 @@ Wymagania systemowe
    + [jQuery](http://jquery.com)
    + [jQuery-hashchange](http://benalman.com/projects/jquery-hashchange-plugin/)
    + [Mustache](https://github.com/janl/mustache.js/)
- 
+
 Instalacja
 ----------
 
@@ -34,7 +32,7 @@ Po ściągnięciu z repozytorium katalogów [/web/](web/) oraz [/bin/](bin/), na
  * w podkatalogu /web/lib/ umieścić wymagane biblioteki JavaScript (niedostarczane z aplikacją)
  * jeśli potrzeba, w pliku /web/index.html edytować ścieżki do bibliotek JavaScript
  * w pliku [/web/osika.php](web/osika.php) edytować linię rozpoczynającą się od `require_once` tak, aby wskazywała na odpowiedni plik katalogu [/bin/lib/](bin/lib/)
- 
+
 Użycie
 ------
 
