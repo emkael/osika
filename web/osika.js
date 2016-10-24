@@ -42,7 +42,7 @@ var Osika = function() {
             }
             that.getHand(location.hash.substring(1));
 		}
-		jQuery(window).hashchange(that.init);
+		jQuery(window).on('hashchange', that.init);
     };
     that.init();
 };
