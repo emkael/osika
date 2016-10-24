@@ -15,7 +15,6 @@ Wymagania systemowe
  * eee... serwer WWW?
  * biblioteki JavaScript:
    + [jQuery](http://jquery.com)
-   + [jQuery-hashchange](http://benalman.com/projects/jquery-hashchange-plugin/)
    + [Mustache](https://github.com/janl/mustache.js/)
 
 Instalacja
